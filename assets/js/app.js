@@ -1,7 +1,7 @@
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
-import css from "../css/app.css"
+import css from "../css/app.scss";
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -12,7 +12,7 @@ import css from "../css/app.css"
 // App.js inspired by: https://github.com/NatTuck/husky_shop_spa/assets/js/app.js
 // and http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/16-spa/notes.html
 
-import "phoenix_html"
+import "phoenix_html";
 import jQuery from 'jquery';
 window.jQuery = window.$ = jQuery;
 import "bootstrap";
