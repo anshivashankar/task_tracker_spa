@@ -9,7 +9,15 @@ import css from "../css/app.css"
 //
 // Import dependencies
 //
+// App.js inspired by: https://github.com/NatTuck/husky_shop_spa/assets/js/app.js
+// and http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/16-spa/notes.html
+
 import "phoenix_html"
+import jQuery from 'jquery';
+window.jQuery = window.$ = jQuery;
+import "bootstrap";
+import _ from "lodash";
+
 
 // Import local files
 //
@@ -17,3 +25,10 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+
+import root_init from "./root";
+ $(() => {
+  let node = $('#root')[0];
+  root_init(node);
+});
