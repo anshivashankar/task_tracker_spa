@@ -4,12 +4,31 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import _ from 'lodash';
 import $ from 'jquery';
+import api from './api';
 
-export default function root_init(node) {
-  let tasks = window.tasks;
-  ReactDOM.render(<Root tasks={tasks} />, node);
+//export default function root_init(node) {
+//  let tasks = window.tasks;
+//  ReactDOM.render(<Root tasks={tasks} />, node);
+//}
+
+export default function root_init(node, store) {
+  let action = {
+    type: 'PRODUCT_LIST',
+    data: window.products,
+  };
+  store.dispatch(action);
+  api.fetch_tasks();
+  api.fetch_users();
+  //api.fetch_cart();
+  //api.create_session("bob@example.com", "pass1");
+  api.create_session("testing@email.com", "password2");
+  ReactDOM.render(
+    <Provider store={store}>
+      <Root tasks={window.tasks}/>
+    </Provider>, node);
 }
 
 class Root extends React.Component {
@@ -19,7 +38,7 @@ class Root extends React.Component {
       tasks: props.tasks,
       session: null
     };
-    this.create_session("testing@email.com", "password2");
+    api.create_session("testing@email.com", "password2");
   }
 
   fetch_new_tasks() {
