@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import _ from 'lodash';
 import $ from 'jquery';
 import api from './api';
+import TaskList from './task_list';
 
 //export default function root_init(node) {
 //  let tasks = window.tasks;
@@ -23,7 +24,6 @@ export default function root_init(node, store) {
   api.fetch_tasks();
   api.fetch_users();
   //api.fetch_cart();
-  //api.create_session("bob@example.com", "pass1");
   api.create_session("testing@email.com", "password2");
   ReactDOM.render(
     <Provider store={store}>
@@ -38,9 +38,9 @@ class Root extends React.Component {
       tasks: props.tasks,
       session: null
     };
-    api.create_session("testing@email.com", "password2");
+    //api.create_session("testing@email.com", "password2");
   }
-
+/*
   fetch_new_tasks() {
     $.ajax("/api/tasks", {
       method: "get",
@@ -69,7 +69,7 @@ class Root extends React.Component {
       }
     });
   }
-
+*/
   render() {
     return <div>
       <Header session={this.state.session} />
@@ -103,50 +103,12 @@ function EmailOrLogin(props) {
   else {
     return <div className="float-sm-right">
     <p>Signed in as: {props.session.user_name}</p>
+    <button className="btn btn-link" onClick={() => api.fetch_tasks()} >Logout</button>
     <a href="/">Profile</a>
     <br/>
     <a href="/">Logout</a>
     </div>;
   }
-}
-
-function TaskList(props) {
-  let tks = _.map(props.tasks, (t) => <Task key={t.id} task={t} />);
-  return <div className="row">
-      <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Time Taken</th>
-            <th>Completion</th>
-            <th>Assigned User</th>
-          </tr>
-        </thead>
-      <tbody>
-        {tks}
-      </tbody>
-      </table>
-    </div>;
-}
-
-function Task(props) {
-  let {task} = props;
-  let symbol;
-  if(task.completion) {
-    symbol = "✔";
-  }
-  else {
-    symbol = "✖";
-  }
-
-  return <tr>
-      <td> {task.title} </td>
-      <td> {task.description} </td>
-      <td> {task.time} </td>
-      <td> {symbol} </td>
-      <td> {task.assigned_user_id} </td>
-    </tr>;
 }
 
 
