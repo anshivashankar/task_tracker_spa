@@ -10,6 +10,7 @@ import _ from 'lodash';
 import $ from 'jquery';
 import api from './api';
 import TaskList from './task_list';
+import TaskAdd from './task_add';
 import Header from './header';
 import store from './store';
 
@@ -22,6 +23,8 @@ export default function root_init(node, store) {
   store.dispatch(action);
   api.fetch_tasks();
   api.fetch_users();
+
+  // TODO remove this before submission.
   api.create_session("testing@email.com", "password2");
   ReactDOM.render(
     <Provider store={store}>
@@ -36,6 +39,9 @@ function Root(props) {
         <Header />
         <Route path="/" exact={true} render={() =>
           <TaskList />
+        } />
+        <Route path="/new-task" exact={true} render={() =>
+          <TaskAdd />
         } />
       </div>
     </Router>

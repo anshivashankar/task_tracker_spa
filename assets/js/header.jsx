@@ -4,7 +4,6 @@ import _ from 'lodash';
 import api from './api';
 
 export default connect(({session}) => ({session}))((props) => {
-  console.log("Session:", props);
   return <div className="row my-2">
     <div className="col-6">
       <h1>Task Tracker</h1>

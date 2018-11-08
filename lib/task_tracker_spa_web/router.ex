@@ -17,6 +17,7 @@ defmodule TaskTrackerSpaWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/new-task", PageController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -26,6 +27,6 @@ defmodule TaskTrackerSpaWeb.Router do
     resources "/sessions", SessionController, only: [:create]
     
     resources "/users", UserController, except: [:new, :edit]
-    resources "/tasks", TaskController, except: [:new, :edit]
+    resources "/tasks", TaskController
   end
 end

@@ -15,8 +15,9 @@ defmodule TaskTrackerSpa.Tasks.Task do
 
   @doc false
   def changeset(task, attrs) do
+    IO.inspect("ALSO COMES HERE")
     task
     |> cast(attrs, [:title, :description, :time, :completion, :assigned_user_id])
-    |> validate_required([:title, :description, :time, :completion, :assigned_user_id])
+    |> validate_required([:title, :description, :time])
   end
 end

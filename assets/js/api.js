@@ -39,8 +39,6 @@ class TheServer {
   }
 
   create_session(email, password) {
-    console.log(email);
-    console.log(password);
     $.ajax("/api/sessions", {
       method: "post",
       dataType: "json",
@@ -51,6 +49,38 @@ class TheServer {
           type: 'NEW_SESSION',
           data: resp.data,
         });
+      }
+    });
+  }
+
+  create_task(title, description) {
+    console.log(title);
+    console.log(description);
+    let time = 0;
+    let data = {};
+    data.title = title;
+    data.description = description;
+    data.time = 0;
+    $.ajax("/api/tasks", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ task: data }),
+      success: (resp) => {
+        this.fetch_tasks();
+        location.href='/';
+      }
+    });
+  }
+
+  remove_task(task_id) {
+    $.ajax(('/api/tasks/' + task_id), {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: "",
+      success: (resp) => {
+        this.fetch_tasks();
       }
     });
   }
@@ -69,18 +99,6 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(data),
       success: callback,
-    });
-  }
-
-  remove_task(task_id) {
-    $.ajax(('/api/task/' + task_id), {
-      method: "delete",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      data: "",
-      success: (resp) => {
-        this.fetch_tasks();
-      }
     });
   }
 }

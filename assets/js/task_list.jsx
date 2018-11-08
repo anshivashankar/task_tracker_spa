@@ -2,11 +2,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import api from './api';
 
 var user_list;
 
 export default connect(({tasks, users}) => ({tasks, users}))((props) => {
-  console.log("TaskList(", props);
   user_list = props.users;
   let tks = _.map(props.tasks, (t) => <Task key={t.id} task={t} />);
   return <div className="row">
@@ -18,12 +18,14 @@ export default connect(({tasks, users}) => ({tasks, users}))((props) => {
             <th>Time Taken</th>
             <th>Completion</th>
             <th>Assigned User</th>
+            <th> </th>
           </tr>
         </thead>
       <tbody>
         {tks}
       </tbody>
       </table>
+      <a href="/new-task" className="btn btn-primary">New Task</a>
     </div>;
 });
 
@@ -38,12 +40,13 @@ function Task(props) {
     symbol = "✖";
   }
   
-  // TODO finish this!
-  //console.log("Assigned_user:", task.assigned_user);
-  //console.log("THING",user_list[task.assigned_user]);
-  assigned_user = _.get(task, 'assigned_user', "Not Assigned");
-  //assigned_user = user_list[task.assigned_user];
-
+  // TODO actually get the name.
+  if(task.assigned_user == null) {
+    assigned_user = "Not Assigned";
+  }
+  else {
+    assigned_user = _.get(task, 'assigned_user', "Not Assigned");
+  }
 
   return <tr>
       <td> {task.title} </td>
@@ -51,6 +54,7 @@ function Task(props) {
       <td> {task.time} </td>
       <td> {symbol} </td>
       <td> {assigned_user} </td>
+      <td> <button onClick={() => api.remove_task(task.id)}>Remove</button></td>
     </tr>;
 }
 
