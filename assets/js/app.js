@@ -18,6 +18,7 @@ window.jQuery = window.$ = jQuery;
 import "bootstrap";
 import _ from "lodash";
 import store from './store';
+import api from './api';
 
 // Import local files
 //
@@ -32,3 +33,18 @@ import root_init from "./root";
   let node = $('#root')[0];
   root_init(node, store);
 });
+
+window.editTime = (task_id) => {
+  $("#task-time-" + task_id).hide();
+  $('#new-task-time-' + task_id).show();
+}
+
+window.changeTime = (task) => {
+  $("#task-time-" + task.id).show();
+  $('#new-task-time-' + task.id).hide();
+  let newTime = $('#time-task-time-' + task.id).val();
+  if(newTime % 15 == 0 && newTime >= 0) {
+    api.change_time(task, newTime);
+  }
+}
+

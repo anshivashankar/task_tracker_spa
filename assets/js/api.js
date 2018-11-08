@@ -100,6 +100,20 @@ class TheServer {
     });
   }
 
+  change_time(task, time) {
+    task.time = time;
+    let task_id = task.id
+    $.ajax(("/api/tasks/" + task_id), {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ task: task }),
+      success: (resp) => {
+        this.fetch_tasks();
+      }
+    });
+  }
+
   remove_task(task_id) {
     $.ajax(('/api/tasks/' + task_id), {
       method: "delete",

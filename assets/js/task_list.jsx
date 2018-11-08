@@ -48,23 +48,41 @@ function Task(props) {
     finished_button = <button className="btn btn-link" onClick={() => api.mark_complete(task)}>Finish</button>
   }
   
-  // TODO actually get the name.
   if(task.assigned_user == null) {
     assigned_user = "Not Assigned";
   }
   else {
-    assigned_user = _.get(task, 'assigned_user', "Not Assigned");
+    assigned_user = _.get(task, 'assigned_user');
+    assigned_user = _.get(user_list[parseInt(assigned_user, 10)], 'name');
   }
+  let task_time_id = "task-time-" + task.id;
+  let time_new_id = "new-" + task_time_id;
+  let hidden_style = {
+    display: 'none'
+  }
+  let time_new_time = "time-" + task_time_id;
 
   return <tr>
       <td> {task.title} </td>
       <td> {task.description} </td>
-      <td> {task.time} </td>
+      <td id={task_time_id} 
+          onClick={() => window.editTime(task.id)}>{task.time}</td>
+      <td id={time_new_id}
+          style={hidden_style}><input id={time_new_time} 
+          onBlur={() => window.changeTime(task)}
+          step={15}
+          defaultValue={task.time}
+          min={0}
+          type="number" /></td>
       <td> {symbol} </td>
       <td> {assigned_user} </td>
-      <td> <button className="btn btn-link" onClick={() => api.remove_task(task.id)}>Remove</button>
+      <td> <button
+      className="btn btn-link" 
+      onClick={() => api.remove_task(task.id)}>Remove</button>
       {finished_button}
       </td>
     </tr>;
 }
+
+
 

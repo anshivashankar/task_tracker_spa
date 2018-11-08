@@ -24,7 +24,6 @@ function EmailOrLogin(props) {
       <button className="btn btn-secondary" 
       onClick={() => api.create_session($("#email").val(), $("#password").val())} >Login</button>
       <p><Link className="btn btn-link" to={"/register"}>Register</Link></p>
-
     </div>;
   }
   else {
@@ -34,4 +33,6 @@ function EmailOrLogin(props) {
     </div>;
   }
 }
+
+
 
