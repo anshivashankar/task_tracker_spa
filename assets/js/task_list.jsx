@@ -42,10 +42,10 @@ function Task(props) {
   }
   let finished_button;
   if(task.completion == true) {
-    finished_button = <button onClick={() => api.mark_complete(task)}>Un-Finish</button>
+    finished_button = <button className="btn btn-link" onClick={() => api.mark_complete(task)}>Un-Finish</button>
   }
   else {
-    finished_button = <button onClick={() => api.mark_complete(task)}>Finish</button>
+    finished_button = <button className="btn btn-link" onClick={() => api.mark_complete(task)}>Finish</button>
   }
   
   // TODO actually get the name.
@@ -62,7 +62,7 @@ function Task(props) {
       <td> {task.time} </td>
       <td> {symbol} </td>
       <td> {assigned_user} </td>
-      <td> <button onClick={() => api.remove_task(task.id)}>Remove</button>
+      <td> <button className="btn btn-link" onClick={() => api.remove_task(task.id)}>Remove</button>
       {finished_button}
       </td>
     </tr>;
