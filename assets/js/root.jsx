@@ -11,6 +11,7 @@ import $ from 'jquery';
 import api from './api';
 import TaskList from './task_list';
 import TaskAdd from './task_add';
+import UserAdd from './user_add';
 import Header from './header';
 import store from './store';
 
@@ -41,6 +42,9 @@ function Root(props) {
         } />
         <Route path="/new-task" exact={true} render={() =>
           <TaskAdd />
+        } />
+        <Route path="/register" exact={true} render={() =>
+          <UserAdd />
         } />
       </div>
     </Router>

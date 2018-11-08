@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
 import _ from 'lodash';
 import api from './api';
 
@@ -22,6 +23,8 @@ function EmailOrLogin(props) {
       <input id="password" type="password" placeholder="password" />
       <button className="btn btn-secondary" 
       onClick={() => api.create_session($("#email").val(), $("#password").val())} >Login</button>
+      <p><Link className="btn btn-link" to={"/register"}>Register</Link></p>
+
     </div>;
   }
   else {

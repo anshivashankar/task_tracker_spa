@@ -38,6 +38,23 @@ class TheServer {
     );
   }
 
+  create_user(name, email, password) {
+    let data = {}
+    data.name = name;
+    data.email = email;
+    data.password = password;
+
+    $.ajax("/api/users", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ user: data }),
+      success: (resp) => {
+        this.create_session(email, password)
+      }
+    });
+  }
+
   create_session(email, password) {
     $.ajax("/api/sessions", {
       method: "post",
