@@ -54,9 +54,6 @@ class TheServer {
   }
 
   create_task(title, description) {
-    console.log(title);
-    console.log(description);
-    let time = 0;
     let data = {};
     data.title = title;
     data.description = description;
@@ -68,7 +65,20 @@ class TheServer {
       data: JSON.stringify({ task: data }),
       success: (resp) => {
         this.fetch_tasks();
-        location.href='/';
+      }
+    });
+  }
+
+  mark_complete(task) {
+    task.completion = !task.completion;
+    let task_id = task.id
+    $.ajax(("/api/tasks/" + task_id), {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ task: task }),
+      success: (resp) => {
+        this.fetch_tasks();
       }
     });
   }

@@ -1,6 +1,7 @@
 // inspired by: https://github.com/NatTuck/husky_shop_spa/assets/js/user_list.jsx
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
 import _ from 'lodash';
 import api from './api';
 
@@ -25,7 +26,7 @@ export default connect(({tasks, users}) => ({tasks, users}))((props) => {
         {tks}
       </tbody>
       </table>
-      <a href="/new-task" className="btn btn-primary">New Task</a>
+      <p><Link className="btn btn-primary" to={"/new-task"}>New Task</Link></p>
     </div>;
 });
 
@@ -38,6 +39,13 @@ function Task(props) {
   }
   else {
     symbol = "✖";
+  }
+  let finished_button;
+  if(task.completion == true) {
+    finished_button = <button onClick={() => api.mark_complete(task)}>Un-Finish</button>
+  }
+  else {
+    finished_button = <button onClick={() => api.mark_complete(task)}>Finish</button>
   }
   
   // TODO actually get the name.
@@ -54,7 +62,9 @@ function Task(props) {
       <td> {task.time} </td>
       <td> {symbol} </td>
       <td> {assigned_user} </td>
-      <td> <button onClick={() => api.remove_task(task.id)}>Remove</button></td>
+      <td> <button onClick={() => api.remove_task(task.id)}>Remove</button>
+      {finished_button}
+      </td>
     </tr>;
 }
 

@@ -5,12 +5,13 @@ import _ from 'lodash';
 import api from './api';
 
 export default connect(({users}) => ({users}))((props) => {
-  console.log("UserList(", props);
+  //console.log("UserList(", props);
   return <div>
     <div className="col-12">
-      <input className="form-control" id="title" type="text" placeholder="Title" />
+      <input className="form-control" id="time" type="number" placeholder="Time" />
       <br/>
-      <input className="form-control" id="description" type="text" placeholder="Description" />
+      <input className="form-check-input" id="completion" type="checkbox" />
+      <br/>
       <br/>
       <p onClick={() => api.create_task(
                                        $("#title").val(), 

@@ -23,9 +23,8 @@ export default function root_init(node, store) {
   store.dispatch(action);
   api.fetch_tasks();
   api.fetch_users();
-
   // TODO remove this before submission.
-  api.create_session("testing@email.com", "password2");
+  //api.create_session("testing@email.com", "password2");
   ReactDOM.render(
     <Provider store={store}>
       <Root />
