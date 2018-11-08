@@ -53,15 +53,10 @@ class TheServer {
     });
   }
 
-  remove_session(user_id) {
-    $.ajax(('/api/session/' + task_id), {
-      method: "delete",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      data: "",
-      success: (resp) => {
-        this.fetch_tasks();
-      }
+  delete_session(user_id) {
+    store.dispatch({
+      type: 'DELETE_SESSION',
+      data: null,
     });
   }
 

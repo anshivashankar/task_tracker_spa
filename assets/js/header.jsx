@@ -27,7 +27,7 @@ function EmailOrLogin(props) {
   else {
     return <div className="float-sm-right">
     <p>Signed in as: {props.session.user_name}</p>
-    <button className="btn btn-link" onClick={() => api.fetch_tasks()} >Logout</button>
+    <button className="btn btn-link" onClick={() => api.delete_session(props.session.user_id)} >Logout</button>
     </div>;
   }
 }
