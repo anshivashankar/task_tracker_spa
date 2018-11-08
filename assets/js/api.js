@@ -39,6 +39,8 @@ class TheServer {
   }
 
   create_session(email, password) {
+    console.log(email);
+    console.log(password);
     $.ajax("/api/sessions", {
       method: "post",
       dataType: "json",

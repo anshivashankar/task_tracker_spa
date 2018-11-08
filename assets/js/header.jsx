@@ -19,9 +19,10 @@ export default connect(({session}) => ({session}))((props) => {
 function EmailOrLogin(props) {
   if(props.session == null) {
     return <div className="form-inline my-2">
-      <input type="email" placeholder="email" />
-      <input type="password" placeholder="password" />
-      <button className="btn btn-secondary">Login</button>
+      <input id="email" type="email" placeholder="email" />
+      <input id="password" type="password" placeholder="password" />
+      <button className="btn btn-secondary" 
+      onClick={() => api.create_session($("#email").val(), $("#password").val())} >Login</button>
     </div>;
   }
   else {
