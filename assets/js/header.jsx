@@ -7,7 +7,7 @@ import api from './api';
 export default connect(({session}) => ({session}))((props) => {
   return <div className="row my-2">
     <div className="col-6">
-      <h1>Task Tracker</h1>
+      <h1>Single Page Task Tracker</h1>
       <h3>by Ashwin ShivaShankar</h3>
     </div>
     <div className="col-6">

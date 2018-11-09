@@ -9,7 +9,8 @@ var user_list;
 
 export default connect(({tasks, users}) => ({tasks, users}))((props) => {
   user_list = props.users;
-  let tks = _.map(props.tasks, (t) => <Task key={t.id} task={t} />);
+  tasks = props.tasks.sort((t1, t2) => t1.id - t2.id);
+  let tks = _.map(tasks, (t) => <Task key={t.id} task={t} />);
   return <div className="row">
       <table className="table table-striped table-hover">
         <thead>
@@ -40,9 +41,11 @@ function Task(props) {
   else {
     symbol = "✖";
   }
+
+  // TODO get rid of this if we don't use it.
   let finished_button;
   if(task.completion == true) {
-    finished_button = <button className="btn btn-link" onClick={() => api.mark_complete(task)}>Un-Finish</button>
+    finished_button = <button className="btn btn-link" onClick={() => api.mark_complete(task)}>Un-Finish</button>;
   }
   else {
     finished_button = <button className="btn btn-link" onClick={() => api.mark_complete(task)}>Finish</button>
@@ -53,14 +56,18 @@ function Task(props) {
   }
   else {
     assigned_user = _.get(task, 'assigned_user');
-    assigned_user = _.get(user_list[parseInt(assigned_user, 10)], 'name');
+    assigned_user = _.get(user_list[parseInt(assigned_user, 10) - 1], 'name');
   }
   let task_time_id = "task-time-" + task.id;
   let time_new_id = "new-" + task_time_id;
+  let time_new_time = "time-" + task_time_id;
+
   let hidden_style = {
     display: 'none'
   }
-  let time_new_time = "time-" + task_time_id;
+
+  let user_new_id = "user-assigned-add-" + task.id;
+  let user_show_id = "user-assigned-show-" + task.id;
 
   return <tr>
       <td> {task.title} </td>
@@ -72,14 +79,18 @@ function Task(props) {
           onBlur={() => window.changeTime(task)}
           step={15}
           defaultValue={task.time}
-          min={0}
           type="number" /></td>
-      <td> {symbol} </td>
-      <td> {assigned_user} </td>
+      <td onClick={() => api.mark_complete(task)}
+          > {symbol} </td>
+      <td id={user_show_id}
+          onClick={() => window.showUsers(task.id, user_list)}
+          > {assigned_user} </td>
+      <td id={user_new_id}
+          onBlur={() => window.changeAssigned(task)}
+          style={hidden_style}></td>
       <td> <button
       className="btn btn-link" 
       onClick={() => api.remove_task(task.id)}>Remove</button>
-      {finished_button}
       </td>
     </tr>;
 }

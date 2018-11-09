@@ -48,3 +48,31 @@ window.changeTime = (task) => {
   }
 }
 
+window.showUsers = (task_id, user_list) => {
+  $("#user-assigned-add-" + task_id).show();
+  $("#user-assigned-show-" + task_id).hide();
+  let i;
+  let id = "select-user-id-" + task_id;
+  let user_select_html = "<select ";
+  user_select_html += "id=" + id + " >";
+  for(i=0; i != user_list.length; i++) {
+    let user_name = _.get(user_list[i], 'name');
+    let user_id = _.get(user_list[i], 'id');
+    user_select_html += '<option value="';
+    user_select_html += user_id + '">' + user_name;
+    user_select_html += "</option>";
+  }
+  user_select_html += "</select>";
+  $("#user-assigned-add-" + task_id).html(user_select_html);
+}
+
+
+window.changeAssigned = (task) => {
+  console.log("comes here again");
+  let newUser = $('#select-user-id-' + task.id).val();
+  console.log(newUser);
+  $("#user-assigned-add-" + task.id).hide();
+  $("#user-assigned-show-" + task.id).show();
+  $('#select-user-id-' + task.id).hide();
+  api.assign_user(task, newUser);
+}
