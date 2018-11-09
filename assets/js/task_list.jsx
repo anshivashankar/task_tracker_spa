@@ -6,10 +6,11 @@ import _ from 'lodash';
 import api from './api';
 
 var user_list;
+var session;
 
 export default connect(({session, tasks, users}) => ({session, tasks, users}))((props) => {
   user_list = props.users;
-  let session = props.session;
+  session = props.session;
   tasks = props.tasks.sort((t1, t2) => t1.id - t2.id);
   let tks = _.map(tasks, (t) => <Task key={t.id} task={t} />);
   let new_task = <p></p>;
@@ -66,6 +67,14 @@ function Task(props) {
   let user_new_id = "user-assigned-add-" + task.id;
   let user_show_id = "user-assigned-show-" + task.id;
 
+  let remove_button = <p></p>;
+
+  if(session != null) {
+    remove_button = <button
+      className="btn btn-link" 
+      onClick={() => api.remove_task(task.id)}>Remove</button>;
+  }
+
   return <tr>
       <td> {task.title} </td>
       <td> {task.description} </td>
@@ -85,9 +94,7 @@ function Task(props) {
       <td id={user_new_id}
           onBlur={() => window.changeAssigned(task)}
           style={hidden_style}></td>
-      <td> <button
-      className="btn btn-link" 
-      onClick={() => api.remove_task(task.id)}>Remove</button>
+      <td> {remove_button}
       </td>
     </tr>;
 }
