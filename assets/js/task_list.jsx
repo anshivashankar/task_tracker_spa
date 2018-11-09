@@ -7,10 +7,16 @@ import api from './api';
 
 var user_list;
 
-export default connect(({tasks, users}) => ({tasks, users}))((props) => {
+export default connect(({session, tasks, users}) => ({session, tasks, users}))((props) => {
   user_list = props.users;
+  let session = props.session;
   tasks = props.tasks.sort((t1, t2) => t1.id - t2.id);
   let tks = _.map(tasks, (t) => <Task key={t.id} task={t} />);
+  let new_task = <p></p>;
+  if(session != null) {
+    new_task = <p><Link className="btn btn-primary" to={"/new-task"}>New Task</Link></p>;
+  }
+
   return <div className="row">
       <table className="table table-striped table-hover">
         <thead>
@@ -27,7 +33,7 @@ export default connect(({tasks, users}) => ({tasks, users}))((props) => {
         {tks}
       </tbody>
       </table>
-      <p><Link className="btn btn-primary" to={"/new-task"}>New Task</Link></p>
+      {new_task}
     </div>;
 });
 
@@ -42,15 +48,6 @@ function Task(props) {
     symbol = "✖";
   }
 
-  // TODO get rid of this if we don't use it.
-  let finished_button;
-  if(task.completion == true) {
-    finished_button = <button className="btn btn-link" onClick={() => api.mark_complete(task)}>Un-Finish</button>;
-  }
-  else {
-    finished_button = <button className="btn btn-link" onClick={() => api.mark_complete(task)}>Finish</button>
-  }
-  
   if(task.assigned_user == null) {
     assigned_user = "Not Assigned";
   }

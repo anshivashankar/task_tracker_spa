@@ -55,6 +55,7 @@ window.showUsers = (task_id, user_list) => {
   let id = "select-user-id-" + task_id;
   let user_select_html = "<select ";
   user_select_html += "id=" + id + " >";
+  user_select_html += '<option value="-1">Not Assigned</option>';
   for(i=0; i != user_list.length; i++) {
     let user_name = _.get(user_list[i], 'name');
     let user_id = _.get(user_list[i], 'id');
@@ -68,9 +69,7 @@ window.showUsers = (task_id, user_list) => {
 
 
 window.changeAssigned = (task) => {
-  console.log("comes here again");
   let newUser = $('#select-user-id-' + task.id).val();
-  console.log(newUser);
   $("#user-assigned-add-" + task.id).hide();
   $("#user-assigned-show-" + task.id).show();
   $('#select-user-id-' + task.id).hide();

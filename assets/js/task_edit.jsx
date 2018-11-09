@@ -5,7 +5,6 @@ import _ from 'lodash';
 import api from './api';
 
 export default connect(({users}) => ({users}))((props) => {
-  //console.log("UserList(", props);
   return <div>
     <div className="col-12">
       <input className="form-control" id="time" type="number" placeholder="Time" />

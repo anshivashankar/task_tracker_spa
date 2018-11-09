@@ -68,10 +68,8 @@ function session(state0 = null, action) {
 
 
 function root_reducer(state0, action) {
-  console.log("reducer", state0, action);
-   let reducer = combineReducers({tasks, users, session});
+  let reducer = combineReducers({tasks, users, session});
   let state1 = reducer(state0, action);
-   console.log("state1", state1);
   return state1;
 }
 

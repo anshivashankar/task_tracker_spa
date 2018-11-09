@@ -51,7 +51,6 @@ defmodule TaskTrackerSpa.Tasks do
 
   """
   def create_task(attrs \\ %{}) do
-    IO.inspect("COMES HERE")
     %Task{}
     |> Task.changeset(attrs)
     |> Repo.insert()

@@ -51,6 +51,7 @@ class TheServer {
       data: JSON.stringify({ user: data }),
       success: (resp) => {
         this.create_session(email, password)
+        this.fetch_users();
       }
     });
   }
@@ -115,7 +116,12 @@ class TheServer {
   }
 
   assign_user(task, user) {
-    task.assigned_user_id = user;
+    if(user == -1) { 
+      task.assigned_user_id = null;
+    }
+    else {
+      task.assigned_user_id = user;
+    }
     let task_id = task.id
     $.ajax(("/api/tasks/" + task_id), {
       method: "put",

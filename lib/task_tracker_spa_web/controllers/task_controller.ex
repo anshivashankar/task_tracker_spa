@@ -12,7 +12,6 @@ defmodule TaskTrackerSpaWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
-    IO.inspect("\n\n\n\ncomes here\n\n\n")
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn
       |> put_status(:created)
