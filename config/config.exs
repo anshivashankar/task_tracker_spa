@@ -11,7 +11,7 @@ config :task_tracker_spa,
 
 # Configures the endpoint
 config :task_tracker_spa, TaskTrackerSpaWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "tasks3.shivashankar.net"],
   secret_key_base: "JSVl4iDQCaroymixEQr5t+WX4pTU/tM1BRcHw3PRQIw5SW0Hk+SuyALis76tkfKW",
   render_errors: [view: TaskTrackerSpaWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: TaskTrackerSpa.PubSub,
