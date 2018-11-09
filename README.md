@@ -2,7 +2,9 @@
 
 I had to make a lot of design choices that make this app different from tasks1. For example, we no longer go onto a different page to edit each task - instead, simply click on each icon or text to edit it. This makes the app more intuitive, easy to use, and saves on adding more Routes.
 
-Additionally, another choice I made was to prevent the addition and deletion of tasks without logging in. However, I do allow the editing of tasks, such as marking as complete, editing time, and assigned user. This is because they are non-destructive, whereas adding and removing tasks can be.
+Additionally, another choice I made was to prevent the addition and deletion of tasks without logging in. However, I do allow the editing of tasks, such as marking as complete, editing time, and assigned user. This is because they are non-destructive, whereas adding and removing tasks can be. This is mostly because I still want non-logged in users to be able to use limited features of the app without having to register first. However, if they want to do more advanced tasks, they still must log in.
+
+My justification on having anyone be able to complete, assign, and add time to tasks for anyone is because this is how the company I previously worked for did their task tracking, and that is what I want to maintain.
 
 # TaskTrackerSpa
 
